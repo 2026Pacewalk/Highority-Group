@@ -155,6 +155,14 @@ const leaders = [
     bio: 'With over 18 years of experience in the aviation, cargo, and logistics industry, Vinay Kumar Bohra is a seasoned operations leader known for driving efficiency, safety, and operational excellence across airline and supply chain environments. Currently serving as General Manager at Highority Group of Companies, UAE & India, Vinay leads international and domestic operations. His aviation career includes leadership roles with Go First Airlines, Vistara, Air Asia India, GoAir, and Kingfisher Airlines. Fluent in English, Hindi, Gujarati, and Punjabi.',
     tags: ['Airline Operations', 'Cargo Logistics', 'Import Export', 'Warehouse Management', 'Customs Clearance', 'Team Leadership', 'Retail Logistics', 'Distribution Management', 'Customer Operations'],
   },
+  {
+    name: 'Savita',
+    designation: 'Director',
+    shortTitle: 'Independent Advisor & Governance Support',
+    image: '',
+    bio: 'Savita is an accomplished professional with extensive experience in corporate governance, regulatory compliance, and legislative processes. As an Independent Advisor and Director, she provides strategic guidance to organizations in establishing robust governance frameworks, ensuring regulatory adherence, and supporting sustainable business growth.\n\nShe possesses in-depth knowledge of compliance management, corporate policies, risk mitigation, and statutory requirements, enabling organizations to navigate complex regulatory environments with confidence. Her expertise extends to advising management teams on governance best practices, legislative developments, and operational compliance matters.\n\nSavita is recognized for her analytical approach, strong ethical standards, and commitment to transparency, accountability, and organizational excellence.',
+    tags: ['Corporate Governance & Board Advisory', 'Regulatory Compliance & Risk Management', 'Legislative & Policy Frameworks', 'Corporate Ethics & Accountability', 'Strategic Advisory & Business Support', 'Stakeholder Engagement', 'Compliance Monitoring & Reporting', 'Organizational Governance Enhancement'],
+  },
 ];
 
 function LeaderCard({ leader, featured = false }: { leader: typeof founder; featured?: boolean }) {
