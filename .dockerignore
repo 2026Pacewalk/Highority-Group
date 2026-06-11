@@ -1,0 +1,21 @@
+# Dependencies & build artifacts (rebuilt inside the image)
+**/node_modules
+**/dist
+**/dist-ssr
+
+# VCS & local tooling
+.git
+.gitignore
+.claude
+**/.claude
+
+# Logs & misc
+*.log
+**/*.local
+.DS_Store
+Thumbs.db
+
+# Docs / non-app files not needed in the image (root-level only)
+tech-spec.md
+mobile-check.png
+logo-header.png
