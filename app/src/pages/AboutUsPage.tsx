@@ -215,15 +215,10 @@ function LeadershipTeam() {
           </div>
         </ScrollReveal>
 
-        {/* Founder — Featured */}
-        <ScrollReveal>
-          <LeaderCard leader={founder} featured />
-        </ScrollReveal>
-
-        {/* Team Members */}
-        <ScrollReveal stagger={0.15} className="mt-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto">
-            {leaders.map((leader, i) => (
+        {/* All leaders — 2 per row on desktop (2x2) */}
+        <ScrollReveal stagger={0.15}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto items-start">
+            {[founder, ...leaders].map((leader, i) => (
               <LeaderCard key={i} leader={leader} />
             ))}
           </div>
