@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Linkedin, Facebook, Instagram, MapPin, Phone, Mail, Clock,
-  Send, ArrowUpRight, ShieldCheck, MessageCircle, CheckCircle2,
+  Send, ArrowUpRight, ShieldCheck, ArrowUp, MessageCircle, CheckCircle2,
 } from 'lucide-react';
 import { offices } from '@/data/officesData';
 
@@ -67,6 +67,8 @@ export default function Footer() {
     setSubscribed(true);
     setEmail('');
   };
+
+  const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
     <footer className="relative bg-[#0A1628] overflow-hidden">
@@ -301,6 +303,13 @@ export default function Footer() {
             <span className="text-white/10">|</span>
             <span>Designed by <a href="https://pacewalk.com" target="_blank" rel="noopener noreferrer" className="text-[#00D4FF] hover:underline">PACEWALK</a></span>
           </div>
+          <button
+            onClick={scrollTop}
+            aria-label="Back to top"
+            className="hidden md:flex group w-10 h-10 rounded-lg items-center justify-center text-[#7A8CA5] bg-white/5 border border-white/10 hover:text-[#0A1628] hover:bg-[#00D4FF] hover:border-[#00D4FF] transition-all duration-300"
+          >
+            <ArrowUp className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
+          </button>
         </div>
       </div>
     </footer>
