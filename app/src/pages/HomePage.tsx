@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import HeroSection from '@/sections/home/HeroSection';
 import TrustSection from '@/sections/home/TrustSection';
 import ServicesSection from '@/sections/home/ServicesSection';
@@ -18,6 +19,7 @@ interface HomePageProps {
 
 export default function HomePage({ loaderDone }: HomePageProps) {
   const [localLoaderDone, setLocalLoaderDone] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (loaderDone) {
@@ -26,6 +28,17 @@ export default function HomePage({ loaderDone }: HomePageProps) {
       return () => clearTimeout(timer);
     }
   }, [loaderDone]);
+
+  // /products lands on the home page and scrolls to the products section.
+  // Run after content is laid out, then re-align once images settle.
+  useEffect(() => {
+    if (pathname !== '/products') return;
+    const scrollToProducts = (behavior: ScrollBehavior) =>
+      document.getElementById('products')?.scrollIntoView({ behavior, block: 'start' });
+    const t1 = setTimeout(() => scrollToProducts('smooth'), 700);
+    const t2 = setTimeout(() => scrollToProducts('auto'), 1500);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, [pathname]);
 
   return (
     <main>

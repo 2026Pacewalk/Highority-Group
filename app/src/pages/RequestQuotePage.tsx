@@ -196,9 +196,9 @@ function LogisticsGraphic() {
 /* ────────────────────────────────────────────
    Contact Info Card
    ──────────────────────────────────────────── */
-function ContactInfoCard({ icon: Icon, title, value, href }: { icon: typeof Phone; title: string; value: string; href: string }) {
-  return (
-    <a href={href} className="flex items-center gap-4 p-4 rounded-xl bg-[#F0F4F8] border border-[#0A1628]/5 hover:border-[#00D4FF]/30 hover:bg-[#00D4FF]/5 transition-all duration-300 group">
+function ContactInfoCard({ icon: Icon, title, value, href }: { icon: typeof Phone; title: string; value: string; href?: string }) {
+  const inner = (
+    <>
       <div className="w-11 h-11 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/20 flex items-center justify-center flex-shrink-0">
         <Icon className="w-5 h-5 text-[#00D4FF]" />
       </div>
@@ -206,8 +206,10 @@ function ContactInfoCard({ icon: Icon, title, value, href }: { icon: typeof Phon
         <p className="text-xs font-body text-[#7A8CA5] uppercase tracking-wider">{title}</p>
         <p className="text-sm font-body text-[#0A1628] group-hover:text-[#00D4FF] transition-colors">{value}</p>
       </div>
-    </a>
+    </>
   );
+  const className = "flex items-center gap-4 p-4 rounded-xl bg-[#F0F4F8] border border-[#0A1628]/5 hover:border-[#00D4FF]/30 hover:bg-[#00D4FF]/5 transition-all duration-300 group";
+  return href ? <a href={href} className={className}>{inner}</a> : <div className={className}>{inner}</div>;
 }
 
 /* ────────────────────────────────────────────
@@ -708,7 +710,6 @@ export default function RequestQuotePage() {
                     icon={MapPin}
                     title="Visit Us"
                     value="Zirakpur, Punjab, India"
-                    href="#"
                   />
                 </div>
               </ScrollReveal>

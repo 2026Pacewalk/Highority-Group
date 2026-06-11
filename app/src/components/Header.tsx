@@ -19,14 +19,14 @@ const serviceLinks = [
 ];
 
 const productLinks = [
-  { label: 'Agro Products', href: '/#products', icon: Wheat },
-  { label: 'Food & Non-Food Products', href: '/#products', icon: Apple },
-  { label: 'FMCG Products', href: '/#products', icon: ShoppingCart },
-  { label: 'Snacks & Confectionery', href: '/#products', icon: Cookie },
-  { label: 'Household Products', href: '/#products', icon: Home },
-  { label: 'Personal Care Products', href: '/#products', icon: Sparkles },
-  { label: 'General Trading Items', href: '/#products', icon: Boxes },
-  { label: 'Industrial & Commercial Supplies', href: '/#products', icon: Factory },
+  { label: 'Agro Products', href: '/products', icon: Wheat },
+  { label: 'Food & Non-Food Products', href: '/products', icon: Apple },
+  { label: 'FMCG Products', href: '/products', icon: ShoppingCart },
+  { label: 'Snacks & Confectionery', href: '/products', icon: Cookie },
+  { label: 'Household Products', href: '/products', icon: Home },
+  { label: 'Personal Care Products', href: '/products', icon: Sparkles },
+  { label: 'General Trading Items', href: '/products', icon: Boxes },
+  { label: 'Industrial & Commercial Supplies', href: '/products', icon: Factory },
 ];
 
 export default function Header() {

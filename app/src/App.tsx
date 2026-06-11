@@ -33,7 +33,12 @@ import HighfiveGlobalPage from '@/pages/companies/HighfiveGlobalPage';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  useEffect(() => {
+    // The /products route lands on the home page; HomePage handles scrolling
+    // to the products section once its content is laid out.
+    if (pathname === '/products') return;
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return null;
 }
 
@@ -45,6 +50,7 @@ export default function App() {
       <Suspense fallback={<div className="min-h-screen bg-white flex items-center justify-center"><div className="w-8 h-8 border-2 border-[#00D4FF] border-t-transparent rounded-full animate-spin" /></div>}>
         <Routes>
           <Route path="/" element={<HomePage loaderDone={true} />} />
+          <Route path="/products" element={<HomePage loaderDone={true} />} />
           <Route path="/services" element={<ServicesPage />} />
 
           {/* 11 Final Service Pages */}

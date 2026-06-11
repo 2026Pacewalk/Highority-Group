@@ -19,7 +19,7 @@ const mainLinks = [
   { label: 'About Us', href: '/about-us' },
   { label: 'Global Network', href: '/global-network' },
   { label: 'Services', href: '/services', hasSubmenu: true },
-  { label: 'Products', href: '/#products', hasSubmenu: true },
+  { label: 'Products', href: '/products', hasSubmenu: true },
   { label: 'Contact Us', href: '/contact-us' },
 ];
 
@@ -36,14 +36,14 @@ const serviceLinks = [
 ];
 
 const productLinks = [
-  { label: 'Agro Products', href: '/#products', icon: Wheat },
-  { label: 'Food & Non-Food', href: '/#products', icon: Apple },
-  { label: 'FMCG Products', href: '/#products', icon: ShoppingCart },
-  { label: 'Snacks & Confectionery', href: '/#products', icon: Cookie },
-  { label: 'Household Products', href: '/#products', icon: HomeIcon },
-  { label: 'Personal Care', href: '/#products', icon: Sparkles },
-  { label: 'General Trading', href: '/#products', icon: Boxes },
-  { label: 'Industrial Supplies', href: '/#products', icon: Factory },
+  { label: 'Agro Products', href: '/products', icon: Wheat },
+  { label: 'Food & Non-Food', href: '/products', icon: Apple },
+  { label: 'FMCG Products', href: '/products', icon: ShoppingCart },
+  { label: 'Snacks & Confectionery', href: '/products', icon: Cookie },
+  { label: 'Household Products', href: '/products', icon: HomeIcon },
+  { label: 'Personal Care', href: '/products', icon: Sparkles },
+  { label: 'General Trading', href: '/products', icon: Boxes },
+  { label: 'Industrial Supplies', href: '/products', icon: Factory },
 ];
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
