@@ -56,9 +56,6 @@ const socials = [
   { label: 'X', href: 'https://x.com/HighorityGroup', Icon: XIcon },
 ];
 
-const mapUrl = (query: string) =>
-  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
@@ -278,22 +275,18 @@ export default function Footer() {
             <MapPin className="w-4 h-4 text-[#00D4FF]" />
             <span className="text-xs font-medium uppercase tracking-[0.08em] text-white font-body">Our Presence</span>
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             {offices.map((office) => (
-              <a
+              <div
                 key={office.id}
-                href={mapUrl(office.mapQuery)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-2.5 rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 hover:border-[#00D4FF]/40 hover:bg-white/[0.07] transition-all duration-300"
+                className="flex items-center gap-2.5 rounded-xl bg-white/5 border border-white/10 px-3 py-3 transition-colors duration-300 hover:border-[#00D4FF]/30"
               >
                 <office.icon className="w-4 h-4 text-[#00D4FF] flex-shrink-0" />
-                <span className="flex flex-col">
+                <span className="flex flex-col min-w-0">
                   <span className="text-sm font-body text-white leading-tight">{office.city}</span>
-                  <span className="text-[10px] font-body text-[#7A8CA5] leading-tight">{office.type}</span>
+                  <span className="text-[10px] font-body text-[#7A8CA5] leading-tight truncate">{office.type}</span>
                 </span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#7A8CA5] opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-[#00D4FF] transition-all duration-300" />
-              </a>
+              </div>
             ))}
           </div>
         </div>
