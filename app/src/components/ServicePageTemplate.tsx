@@ -42,7 +42,7 @@ const defaultWhyUs = [
 
 export default function ServicePageTemplate({ service }: ServicePageTemplateProps) {
   const [openFaq, setOpenFaq] = useState<Set<number>>(new Set());
-  const toggleFaq = (i: number) => setOpenFaq(p => { const n = new Set(p); n.has(i) ? n.delete(i) : n.add(i); return n; });
+  const toggleFaq = (i: number) => setOpenFaq(p => { const n = new Set(p); if (n.has(i)) n.delete(i); else n.add(i); return n; });
 
   const relatedServices = service.relatedSlugs.map(s => servicesData[s]).filter(Boolean);
 
