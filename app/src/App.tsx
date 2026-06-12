@@ -11,6 +11,7 @@ import AboutUsPage from '@/pages/AboutUsPage';
 import RequestQuotePage from '@/pages/RequestQuotePage';
 import ContactUsPage from '@/pages/ContactUsPage';
 import CertificationsPage from '@/pages/CertificationsPage';
+import SitemapPage from '@/pages/SitemapPage';
 
 // Service pages
 import AirFreightPage from '@/pages/services/AirFreightPage';
@@ -86,6 +87,7 @@ export default function App() {
           <Route path="/blogs" element={<PlaceholderPage />} />
           <Route path="/blogs/:slug" element={<PlaceholderPage />} />
           <Route path="/contact-us" element={<ContactUsPage />} />
+          <Route path="/sitemap" element={<SitemapPage />} />
 
           {/* Our Companies */}
           <Route path="/our-companies" element={<OurCompaniesPage />} />

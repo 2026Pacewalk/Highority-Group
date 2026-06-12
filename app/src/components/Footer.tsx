@@ -301,6 +301,8 @@ export default function Footer() {
             <span className="text-white/10">|</span>
             <Link to="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
             <span className="text-white/10">|</span>
+            <Link to="/sitemap" className="hover:text-white transition-colors">Sitemap</Link>
+            <span className="text-white/10">|</span>
             <span>Designed by <a href="https://pacewalk.com" target="_blank" rel="noopener noreferrer" className="text-[#00D4FF] hover:underline">PACEWALK</a></span>
           </div>
           <button
