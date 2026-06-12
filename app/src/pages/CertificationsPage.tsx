@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ShieldCheck, X, ChevronLeft, Award,
-  ZoomIn, Download, FileCheck, Plane
+  ZoomIn, FileCheck, Plane
 } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import PrimaryButton from '@/components/ui/PrimaryButton';
@@ -133,14 +133,6 @@ export default function CertificationsPage() {
                       >
                         <ZoomIn className="w-3.5 h-3.5" /> View
                       </button>
-                      <a
-                        href={cert.image}
-                        download
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1.5 text-sm font-body text-[#7A8CA5] hover:text-[#00D4FF] transition-colors"
-                      >
-                        <Download className="w-3.5 h-3.5" /> Download
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -238,13 +230,6 @@ export default function CertificationsPage() {
                 </div>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
-                <a
-                  href={selectedCert.image}
-                  download
-                  className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#00D4FF]/10 border border-[#00D4FF]/20 text-sm font-body text-[#00D4FF] hover:bg-[#00D4FF]/20 transition-colors"
-                >
-                  <Download className="w-4 h-4" /> Download
-                </a>
                 <button
                   onClick={() => setSelectedCert(null)}
                   className="w-10 h-10 rounded-full border border-[#0A1628]/10 flex items-center justify-center hover:border-[#00D4FF]/50 hover:bg-[#00D4FF]/5 transition-all"

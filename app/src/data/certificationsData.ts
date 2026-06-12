@@ -1,6 +1,6 @@
 import {
   FileCheck, Leaf, Building2, ShieldCheck, Award,
-  Plane, Factory, Utensils, BookmarkCheck, Receipt
+  Plane, Factory, Utensils, BookmarkCheck, Receipt, Handshake
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -77,6 +77,15 @@ export const certifications: Certification[] = [
     description: 'Accredited for cargo agency operations enabling direct partnerships with airlines for air freight.',
     image: '/assets/cert-iata.jpg?v=2',
     icon: Plane,
+  },
+  {
+    id: 'acfi',
+    title: 'ACFI Membership Certificate',
+    subtitle: 'Air Cargo Forum India',
+    issuer: 'Air Cargo Forum India (ACFI)',
+    description: 'Highority India Private Limited is a valued member of Air Cargo Forum India for F.Y. 2025–2026, strengthening our presence in the Indian air cargo community.',
+    image: '/assets/cert-acfi.jpg?v=1',
+    icon: Handshake,
   },
   {
     id: 'udyam',
