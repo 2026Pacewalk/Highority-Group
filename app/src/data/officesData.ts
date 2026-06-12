@@ -70,7 +70,7 @@ export const offices: Office[] = [
     address: '006, 1st Floor, Unique Time Business Center, Union Coop, Al Aweer Central Market, Dubai, United Arab Emirates',
     city: 'Dubai',
     phones: ['+971-505059232', '+971-042597273'],
-    emails: ['contact@highority.in'],
+    emails: ['impex@highority.in'],
     mapQuery: 'Unique+Time+Business+Center+Al+Aweer+Dubai',
     cityImage: '/assets/city-dubai.jpg',
     icon: MapPin,

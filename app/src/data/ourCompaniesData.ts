@@ -14,6 +14,7 @@ export interface Company {
   markets: string[];
   icon: LucideIcon;
   color: string;
+  email?: string;
 }
 
 export const companies: Company[] = [
@@ -73,6 +74,7 @@ export const companies: Company[] = [
       'Industrial & Commercial Supplies',
     ],
     markets: ['UAE', 'GCC Countries', 'Asia', 'Africa', 'Europe'],
+    email: 'impex@highority.in',
     icon: Globe,
     color: 'from-[#00D4FF] to-[#0088AA]',
   },

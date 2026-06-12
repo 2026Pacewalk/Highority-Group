@@ -218,8 +218,8 @@ export default function CompanyProfileTemplate({ company }: Props) {
               <a href="tel:+917087087333" className="inline-flex items-center gap-2 text-white font-body hover:text-[#00D4FF] transition-colors">
                 <Phone className="w-4 h-4" /> +91-70870-87333
               </a>
-              <a href="mailto:contact@highority.in" className="inline-flex items-center gap-2 text-white font-body hover:text-[#00D4FF] transition-colors">
-                <Mail className="w-4 h-4" /> contact@highority.in
+              <a href={`mailto:${company.email || 'contact@highority.in'}`} className="inline-flex items-center gap-2 text-white font-body hover:text-[#00D4FF] transition-colors">
+                <Mail className="w-4 h-4" /> {company.email || 'contact@highority.in'}
               </a>
             </div>
           </ScrollReveal>
