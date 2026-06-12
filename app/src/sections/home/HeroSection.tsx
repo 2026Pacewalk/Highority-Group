@@ -49,7 +49,7 @@ export default function HeroSection({ loaderDone }: HeroSectionProps) {
     }
   }, { scope: sectionRef, dependencies: [loaderDone] });
 
-  const headingWords = 'Future of Global Logistics & Freight Solutions'.split(' ');
+  const headingWords = 'Global Trade, Logistics & Supply Chain Solutions'.split(' ');
 
   return (
     <section ref={sectionRef} className="relative w-full min-h-[100dvh] overflow-hidden flex items-center">
@@ -78,7 +78,7 @@ export default function HeroSection({ loaderDone }: HeroSectionProps) {
             <h1 className="font-display text-[clamp(40px,7vw,80px)] font-normal leading-[1] tracking-[-0.03em] text-white">
               {headingWords.map((word, i) => <span key={i} className="hero-word inline-block mr-[0.3em] opacity-0" style={{ perspective: '1000px' }}>{word}</span>)}
             </h1>
-            <p className="hero-sub opacity-0 mt-6 text-lg font-body text-white/70 max-w-[560px] leading-relaxed">Fast, Secure & Intelligent Cargo Transportation Across The World</p>
+            <p className="hero-sub opacity-0 mt-6 text-lg font-body text-white/70 max-w-[560px] leading-relaxed">Import • Export • Trading • Transportation • Freight Forwarding Worldwide</p>
             <div className="flex flex-wrap gap-4 mt-10">
               <div className="hero-cta opacity-0"><PrimaryButton to="/request-quote">Request Quote</PrimaryButton></div>
               <div className="hero-cta opacity-0"><SecondaryButton to="/track-shipment">Track Shipment</SecondaryButton></div>
