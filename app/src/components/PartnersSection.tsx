@@ -1,7 +1,7 @@
 import ScrollReveal from './ui/ScrollReveal';
 
 /* ────────────────────────────────────────────
-   Partner data — all 16 partners
+   Partner data — all 18 partners
    ──────────────────────────────────────────── */
 const partners = [
   { name: 'Air India', logo: '/assets/partners/air-india.png', alt: 'Air India cargo partner logo' },
@@ -20,6 +20,8 @@ const partners = [
   { name: 'SpiceJet', logo: '/assets/partners/spicejet.png', alt: 'SpiceJet cargo partner logo' },
   { name: 'Etihad Airways', logo: '/assets/partners/etihad.png', alt: 'Etihad Airways cargo partner logo' },
   { name: 'Korean Air', logo: '/assets/partners/korean-air.png', alt: 'Korean Air cargo partner logo' },
+  { name: 'KisanMandi.com', logo: '/assets/partners/kisanmandi.png', alt: 'KisanMandi.com retail and wholesale partner logo' },
+  { name: 'Dairy Craft', logo: '/assets/partners/dairy-craft.svg', alt: 'Dairy Craft dairy products partner logo' },
 ];
 
 /* ────────────────────────────────────────────
