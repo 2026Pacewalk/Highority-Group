@@ -1,8 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, ChevronDown, Plane, Ship, Truck, ClipboardCheck, Package, Globe, TrendingUp, Zap, TrainFront, Warehouse, Wheat, Apple, ShoppingCart, Cookie, Home, Sparkles, Boxes, Factory } from 'lucide-react';
+import { Menu, ChevronDown, Phone, Plane, Ship, Truck, ClipboardCheck, Package, Globe, TrendingUp, Zap, TrainFront, Warehouse, Wheat, Apple, ShoppingCart, Cookie, Home, Sparkles, Boxes, Factory } from 'lucide-react';
 import PrimaryButton from './ui/PrimaryButton';
 import MobileMenu from './MobileMenu';
+
+/* Desktop nav link with a centered gradient underline + active state */
+function NavLink({ to, label, active }: { to: string; label: string; active: boolean }) {
+  return (
+    <Link
+      to={to}
+      className={`relative group py-2 text-[13px] xl:text-sm font-body whitespace-nowrap transition-colors duration-300 ${active ? 'text-[#00D4FF] font-medium' : 'text-[#0A1628] hover:text-[#00D4FF]'}`}
+    >
+      {label}
+      <span className={`absolute left-1/2 -translate-x-1/2 -bottom-0.5 h-[2px] rounded-full bg-gradient-to-r from-[#00D4FF] to-[#00A8CC] transition-all duration-300 ${active ? 'w-5' : 'w-0 group-hover:w-5'}`} />
+    </Link>
+  );
+}
 
 const serviceLinks = [
   { label: 'Air Freight', href: '/services/air-freight', icon: Plane },
@@ -33,14 +46,28 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const onServices = location.pathname.startsWith('/services');
 
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 z-[100] flex items-center bg-white border-b border-[#00D4FF]/10 shadow-sm h-16 sm:h-[72px] md:h-20 lg:h-24"
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
+          scrolled
+            ? 'bg-white/90 backdrop-blur-xl shadow-[0_8px_30px_rgba(10,22,40,0.08)] border-b border-[#00D4FF]/10'
+            : 'bg-white/75 backdrop-blur-md border-b border-[#0A1628]/[0.04]'
+        }`}
       >
-        <div className="w-full flex items-center justify-between px-4 sm:px-5 md:px-6 lg:px-8 xl:container-main">
+        <div className="relative flex items-center justify-between h-16 sm:h-[72px] md:h-20 lg:h-24 px-4 sm:px-5 md:px-6 lg:px-8 xl:container-main">
           {/* Logo — Image Only */}
           <Link
             to="/"
@@ -56,24 +83,10 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {/* About Us */}
-            <Link to="/about-us" className={`relative text-sm font-body text-[#0A1628] transition-colors duration-300 hover:text-[#00D4FF] group ${location.pathname === '/about-us' ? 'text-[#00D4FF]' : ''}`}>
-              About Us
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#00D4FF] transition-all duration-300 group-hover:w-full" />
-            </Link>
-
-            {/* Our Companies */}
-            <Link to="/our-companies" className={`relative text-sm font-body text-[#0A1628] transition-colors duration-300 hover:text-[#00D4FF] group ${location.pathname === '/our-companies' ? 'text-[#00D4FF]' : ''}`}>
-              Our Companies
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#00D4FF] transition-all duration-300 group-hover:w-full" />
-            </Link>
-
-            {/* Global Network */}
-            <Link to="/global-network" className={`relative text-sm font-body text-[#0A1628] transition-colors duration-300 hover:text-[#00D4FF] group ${location.pathname === '/global-network' ? 'text-[#00D4FF]' : ''}`}>
-              Global Network
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#00D4FF] transition-all duration-300 group-hover:w-full" />
-            </Link>
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
+            <NavLink to="/about-us" label="About Us" active={location.pathname === '/about-us'} />
+            <NavLink to="/our-companies" label="Our Companies" active={location.pathname === '/our-companies'} />
+            <NavLink to="/global-network" label="Global Network" active={location.pathname === '/global-network'} />
 
             {/* Services Dropdown */}
             <div
@@ -81,25 +94,25 @@ export default function Header() {
               onMouseEnter={() => setServicesOpen(true)}
               onMouseLeave={() => setServicesOpen(false)}
             >
-              <button className="flex items-center gap-1 text-sm font-body text-[#0A1628] transition-colors duration-300 hover:text-[#00D4FF]">
-                <span className={location.pathname.startsWith('/services') ? 'text-[#00D4FF]' : ''}>Services</span>
+              <button className={`relative group flex items-center gap-1 py-2 text-[13px] xl:text-sm font-body whitespace-nowrap transition-colors duration-300 ${onServices ? 'text-[#00D4FF] font-medium' : 'text-[#0A1628] hover:text-[#00D4FF]'}`}>
+                Services
                 <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${servicesOpen ? 'rotate-180' : ''}`} />
+                <span className={`absolute left-1/2 -translate-x-1/2 -bottom-0.5 h-[2px] rounded-full bg-gradient-to-r from-[#00D4FF] to-[#00A8CC] transition-all duration-300 ${onServices || servicesOpen ? 'w-5' : 'w-0'}`} />
               </button>
 
               {servicesOpen && (
                 <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4">
-                  <div
-                    className="rounded-2xl p-6 w-[540px] bg-white/95 backdrop-blur-3xl border border-[#00D4FF]/10 shadow-lg"
-                  >
-                    <div className="grid grid-cols-2 gap-3">
+                  <div className="relative rounded-2xl p-3 w-[560px] bg-white/95 backdrop-blur-3xl border border-[#00D4FF]/10 shadow-[0_20px_60px_rgba(10,22,40,0.18)] ring-1 ring-black/5">
+                    <span className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-white/95 border-l border-t border-[#00D4FF]/10" />
+                    <div className="grid grid-cols-2 gap-1">
                       {serviceLinks.map((s) => (
                         <Link
                           key={s.href}
                           to={s.href}
-                          className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#00D4FF]/5 transition-all duration-300 group"
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#00D4FF]/[0.07] transition-all duration-200 group"
                         >
-                          <span className="w-9 h-9 rounded-lg bg-[#00D4FF]/10 flex items-center justify-center flex-shrink-0">
-                            <s.icon className="w-4 h-4 text-[#00D4FF]" />
+                          <span className="w-9 h-9 rounded-lg bg-[#00D4FF]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#00D4FF] transition-colors duration-200">
+                            <s.icon className="w-4 h-4 text-[#00D4FF] group-hover:text-white transition-colors duration-200" />
                           </span>
                           <span className="text-sm font-body text-[#0A1628] group-hover:text-[#00D4FF] transition-colors">
                             {s.label}
@@ -118,23 +131,25 @@ export default function Header() {
               onMouseEnter={() => setProductsOpen(true)}
               onMouseLeave={() => setProductsOpen(false)}
             >
-              <button className="flex items-center gap-1 text-sm font-body text-[#0A1628] transition-colors duration-300 hover:text-[#00D4FF]">
-                <span>Products</span>
+              <button className="relative group flex items-center gap-1 py-2 text-[13px] xl:text-sm font-body whitespace-nowrap text-[#0A1628] hover:text-[#00D4FF] transition-colors duration-300">
+                Products
                 <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${productsOpen ? 'rotate-180' : ''}`} />
+                <span className={`absolute left-1/2 -translate-x-1/2 -bottom-0.5 h-[2px] rounded-full bg-gradient-to-r from-[#00D4FF] to-[#00A8CC] transition-all duration-300 ${productsOpen ? 'w-5' : 'w-0'}`} />
               </button>
 
               {productsOpen && (
                 <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4">
-                  <div className="rounded-2xl p-6 w-[420px] bg-white/95 backdrop-blur-3xl border border-[#00D4FF]/10 shadow-lg">
-                    <div className="grid grid-cols-2 gap-3">
+                  <div className="relative rounded-2xl p-3 w-[440px] bg-white/95 backdrop-blur-3xl border border-[#00D4FF]/10 shadow-[0_20px_60px_rgba(10,22,40,0.18)] ring-1 ring-black/5">
+                    <span className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-white/95 border-l border-t border-[#00D4FF]/10" />
+                    <div className="grid grid-cols-2 gap-1">
                       {productLinks.map((p) => (
                         <Link
                           key={p.label}
                           to={p.href}
-                          className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#00D4FF]/5 transition-all duration-300 group"
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#00D4FF]/[0.07] transition-all duration-200 group"
                         >
-                          <span className="w-9 h-9 rounded-lg bg-[#00D4FF]/10 flex items-center justify-center flex-shrink-0">
-                            <p.icon className="w-4 h-4 text-[#00D4FF]" />
+                          <span className="w-9 h-9 rounded-lg bg-[#00D4FF]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#00D4FF] transition-colors duration-200">
+                            <p.icon className="w-4 h-4 text-[#00D4FF] group-hover:text-white transition-colors duration-200" />
                           </span>
                           <span className="text-sm font-body text-[#0A1628] group-hover:text-[#00D4FF] transition-colors">
                             {p.label}
@@ -147,21 +162,19 @@ export default function Header() {
               )}
             </div>
 
-            {/* Track Shipment */}
-            <Link to="/track-shipment" className={`relative text-sm font-body text-[#0A1628] transition-colors duration-300 hover:text-[#00D4FF] group ${location.pathname === '/track-shipment' ? 'text-[#00D4FF]' : ''}`}>
-              Track Shipment
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#00D4FF] transition-all duration-300 group-hover:w-full" />
-            </Link>
-
-            {/* Contact Us */}
-            <Link to="/contact-us" className={`relative text-sm font-body text-[#0A1628] transition-colors duration-300 hover:text-[#00D4FF] group ${location.pathname === '/contact-us' ? 'text-[#00D4FF]' : ''}`}>
-              Contact Us
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#00D4FF] transition-all duration-300 group-hover:w-full" />
-            </Link>
+            <NavLink to="/track-shipment" label="Track Shipment" active={location.pathname === '/track-shipment'} />
+            <NavLink to="/contact-us" label="Contact Us" active={location.pathname === '/contact-us'} />
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center gap-3">
+            <a
+              href="tel:+917087087333"
+              aria-label="Call us"
+              className="flex items-center justify-center w-10 h-10 rounded-full text-[#00D4FF] border border-[#00D4FF]/25 hover:bg-[#00D4FF] hover:text-white hover:border-[#00D4FF] hover:-translate-y-0.5 transition-all duration-300"
+            >
+              <Phone className="w-4 h-4" />
+            </a>
             <PrimaryButton to="/request-quote" size="small">
               Request Quote
             </PrimaryButton>
@@ -181,6 +194,9 @@ export default function Header() {
             </button>
           </div>
         </div>
+
+        {/* Bottom accent line — subtle gradient, brighter once scrolled */}
+        <div className={`pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent to-transparent transition-opacity duration-500 ${scrolled ? 'via-[#00D4FF]/50 opacity-100' : 'via-[#00D4FF]/20 opacity-70'}`} />
       </header>
 
       {/* Mobile Menu */}
