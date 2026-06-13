@@ -7,11 +7,12 @@ import type { Partner } from '@/data/partnersData';
    ──────────────────────────────────────────── */
 function LogoItem({ partner }: { partner: Partner }) {
   return (
-    <div className="flex-shrink-0 w-44 h-20 bg-white border border-[#0A1628]/5 rounded-xl flex items-center justify-center px-4 hover:border-[#00D4FF]/25 hover:shadow-[0_4px_16px_rgba(0,212,255,0.08)] transition-all duration-300">
+    <div className="flex-shrink-0 w-44 h-24 bg-white border border-[#0A1628]/5 rounded-xl flex items-center justify-center px-5 py-4 hover:border-[#00D4FF]/25 hover:shadow-[0_4px_16px_rgba(0,212,255,0.08)] transition-all duration-300">
       <img
         src={partner.logo}
         alt={partner.alt}
-        className="max-h-12 max-w-full object-contain"
+        loading="lazy"
+        className="max-h-full max-w-full w-auto object-contain"
         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
       />
     </div>
