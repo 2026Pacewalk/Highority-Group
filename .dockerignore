@@ -3,6 +3,10 @@
 **/dist
 **/dist-ssr
 
+# Local uploads (persisted on a Railway volume in production)
+server/uploads
+**/.env
+
 # VCS & local tooling
 .git
 .gitignore
