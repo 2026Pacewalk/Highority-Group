@@ -2,14 +2,16 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, X, ArrowRight, ZoomIn } from 'lucide-react';
 import ScrollReveal from './ui/ScrollReveal';
-import { certifications } from '@/data/certificationsData';
+import { useCertifications } from '@/lib/content';
+import type { Certification } from '@/data/certificationsData';
 
 interface CertificationsSectionProps {
   showViewAll?: boolean;
 }
 
 export default function CertificationsSection({ showViewAll = true }: CertificationsSectionProps) {
-  const [selectedCert, setSelectedCert] = useState<typeof certifications[0] | null>(null);
+  const certifications = useCertifications();
+  const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
 
   // Double for seamless loop
   const doubled = [...certifications, ...certifications];

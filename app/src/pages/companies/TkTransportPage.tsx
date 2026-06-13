@@ -1,3 +1,7 @@
 import CompanyProfileTemplate from '@/components/CompanyProfileTemplate';
-import { companies } from '@/data/ourCompaniesData';
-export default function TkTransportPage() { return <CompanyProfileTemplate company={companies[0]} />; }
+import { useCompanies } from '@/lib/content';
+
+export default function TkTransportPage() {
+  const company = useCompanies().find((c) => c.id === 'tk-transport');
+  return company ? <CompanyProfileTemplate company={company} /> : null;
+}

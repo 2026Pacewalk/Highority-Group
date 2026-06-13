@@ -8,6 +8,7 @@ import {
   ClipboardCheck, Zap, Globe, TrendingUp, TrainFront, Warehouse
 } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
+import { api } from '@/lib/api';
 
 /* ────────────────────────────────────────────
    Service options with icons
@@ -272,27 +273,29 @@ export default function RequestQuotePage() {
 
     setSubmitting(true);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
-    // Construct email body for mailto fallback
-    const subject = encodeURIComponent(`Quote Request from ${form.fullName} - ${form.service}`);
-    const body = encodeURIComponent(
-      `Name: ${form.fullName}\n` +
-      `Company: ${form.companyName || 'N/A'}\n` +
-      `Mobile: ${form.mobile}\n` +
-      `Email: ${form.email}\n` +
-      `Service Required: ${form.service}\n` +
-      `Cargo Type: ${form.cargoType || 'N/A'}\n` +
-      `Origin: ${form.origin}\n` +
-      `Destination: ${form.destination}\n` +
-      `Approx Weight: ${form.weight || 'N/A'}\n` +
-      `Shipment Date: ${form.shipmentDate || 'N/A'}\n` +
-      `Message: ${form.message || 'N/A'}`
-    );
-
-    // Open email client
-    window.location.href = `mailto:contact@highority.in?subject=${subject}&body=${body}`;
+    try {
+      await api('/leads', {
+        method: 'POST',
+        body: JSON.stringify({ type: 'quote', source: 'request-quote', payload: form }),
+      });
+    } catch {
+      // Fallback to email client if the API is unreachable.
+      const subject = encodeURIComponent(`Quote Request from ${form.fullName} - ${form.service}`);
+      const body = encodeURIComponent(
+        `Name: ${form.fullName}\n` +
+        `Company: ${form.companyName || 'N/A'}\n` +
+        `Mobile: ${form.mobile}\n` +
+        `Email: ${form.email}\n` +
+        `Service Required: ${form.service}\n` +
+        `Cargo Type: ${form.cargoType || 'N/A'}\n` +
+        `Origin: ${form.origin}\n` +
+        `Destination: ${form.destination}\n` +
+        `Approx Weight: ${form.weight || 'N/A'}\n` +
+        `Shipment Date: ${form.shipmentDate || 'N/A'}\n` +
+        `Message: ${form.message || 'N/A'}`
+      );
+      window.location.href = `mailto:contact@highority.in?subject=${subject}&body=${body}`;
+    }
 
     setSubmitting(false);
     setSubmitted(true);

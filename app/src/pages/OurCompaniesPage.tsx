@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, MapPin, ArrowRight, Building2, Truck, Globe, TrendingUp } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import PrimaryButton from '@/components/ui/PrimaryButton';
-import { companies, groupStructure, whyChooseUs } from '@/data/ourCompaniesData';
+import { groupStructure, whyChooseUs } from '@/data/ourCompaniesData';
+import { useCompanies } from '@/lib/content';
 
 const iconMap: Record<string, typeof Building2> = {
   'tk-transport': Truck,
@@ -11,6 +12,7 @@ const iconMap: Record<string, typeof Building2> = {
 };
 
 export default function OurCompaniesPage() {
+  const companies = useCompanies();
   return (
     <main>
       {/* ═══ HERO ═══ */}

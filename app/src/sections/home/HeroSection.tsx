@@ -6,6 +6,7 @@ import { Package, Globe, Award, ChevronDown } from 'lucide-react';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import SecondaryButton from '@/components/ui/SecondaryButton';
 import Counter from '@/components/ui/Counter';
+import { useHero } from '@/lib/content';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,7 +50,8 @@ export default function HeroSection({ loaderDone }: HeroSectionProps) {
     }
   }, { scope: sectionRef, dependencies: [loaderDone] });
 
-  const headingWords = 'Global Trade, Logistics & Supply Chain Solutions'.split(' ');
+  const hero = useHero();
+  const headingWords = hero.heading.split(' ');
 
   return (
     <section ref={sectionRef} className="relative w-full min-h-[100dvh] overflow-hidden flex items-center">
@@ -73,12 +75,12 @@ export default function HeroSection({ loaderDone }: HeroSectionProps) {
           <div className="flex-1 max-w-2xl">
             <div className="hero-eyebrow opacity-0 flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-[#00D4FF]" />
-              <span className="text-xs font-medium uppercase tracking-[0.08em] text-[#00D4FF] font-body">Global Logistics Solutions</span>
+              <span className="text-xs font-medium uppercase tracking-[0.08em] text-[#00D4FF] font-body">{hero.eyebrow}</span>
             </div>
             <h1 className="font-display text-[clamp(40px,7vw,80px)] font-normal leading-[1] tracking-[-0.03em] text-white">
               {headingWords.map((word, i) => <span key={i} className="hero-word inline-block mr-[0.3em] opacity-0" style={{ perspective: '1000px' }}>{word}</span>)}
             </h1>
-            <p className="hero-sub opacity-0 mt-6 text-lg font-body text-white/70 max-w-[560px] leading-relaxed">Import • Export • Trading • Transportation • Freight Forwarding Worldwide</p>
+            <p className="hero-sub opacity-0 mt-6 text-lg font-body text-white/70 max-w-[560px] leading-relaxed">{hero.subheading}</p>
             <div className="flex flex-wrap gap-4 mt-10">
               <div className="hero-cta opacity-0"><PrimaryButton to="/request-quote">Request Quote</PrimaryButton></div>
               <div className="hero-cta opacity-0"><SecondaryButton to="/track-shipment">Track Shipment</SecondaryButton></div>

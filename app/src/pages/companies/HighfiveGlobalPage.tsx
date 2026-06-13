@@ -1,3 +1,7 @@
 import CompanyProfileTemplate from '@/components/CompanyProfileTemplate';
-import { companies } from '@/data/ourCompaniesData';
-export default function HighfiveGlobalPage() { return <CompanyProfileTemplate company={companies[2]} />; }
+import { useCompanies } from '@/lib/content';
+
+export default function HighfiveGlobalPage() {
+  const company = useCompanies().find((c) => c.id === 'highfive-global');
+  return company ? <CompanyProfileTemplate company={company} /> : null;
+}

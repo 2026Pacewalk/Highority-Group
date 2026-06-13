@@ -1,6 +1,8 @@
-import { Suspense } from 'react';
+import { Suspense, lazy } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+
+const AdminApp = lazy(() => import('@/admin/AdminApp'));
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MobileActions from '@/components/MobileActions';
@@ -44,6 +46,17 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const { pathname } = useLocation();
+
+  // The admin dashboard renders without the public header/footer chrome.
+  if (pathname.startsWith('/admin')) {
+    return (
+      <Suspense fallback={<div className="min-h-screen bg-[#0A1628] flex items-center justify-center"><div className="w-8 h-8 border-2 border-[#00D4FF] border-t-transparent rounded-full animate-spin" /></div>}>
+        <AdminApp />
+      </Suspense>
+    );
+  }
+
   return (
     <>
       <ScrollToTop />

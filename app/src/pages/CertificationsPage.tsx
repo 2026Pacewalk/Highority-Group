@@ -6,7 +6,8 @@ import {
 } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import PrimaryButton from '@/components/ui/PrimaryButton';
-import { certifications } from '@/data/certificationsData';
+import { useCertifications } from '@/lib/content';
+import type { Certification } from '@/data/certificationsData';
 
 /* ────────────────────────────────────────────
    Compliance strength cards
@@ -35,7 +36,8 @@ const complianceCards = [
 ];
 
 export default function CertificationsPage() {
-  const [selectedCert, setSelectedCert] = useState<typeof certifications[0] | null>(null);
+  const certifications = useCertifications();
+  const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
 
   return (
     <main>

@@ -3,9 +3,10 @@ import { ChevronLeft, MapPin, Navigation, Phone, Mail } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import PartnersSection from '@/components/PartnersSection';
-import { offices } from '@/data/officesData';
+import { useOffices } from '@/lib/content';
 
 export default function GlobalNetworkPage() {
+  const offices = useOffices();
   return (
     <main>
       {/* Hero */}

@@ -9,10 +9,18 @@ export default defineConfig({
   plugins: [inspectAttr(), react()],
   server: {
     port: Number(process.env.PORT) || 3000,
+    proxy: {
+      '/api': 'http://localhost:4000',
+      '/uploads': 'http://localhost:4000',
+    },
   },
   resolve: {
+    dedupe: ['react', 'react-dom'],
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  optimizeDeps: {
+    include: ['sonner'],
   },
 });

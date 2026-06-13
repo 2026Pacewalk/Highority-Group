@@ -1,3 +1,7 @@
 import CompanyProfileTemplate from '@/components/CompanyProfileTemplate';
-import { companies } from '@/data/ourCompaniesData';
-export default function HighorityImpexPage() { return <CompanyProfileTemplate company={companies[1]} />; }
+import { useCompanies } from '@/lib/content';
+
+export default function HighorityImpexPage() {
+  const company = useCompanies().find((c) => c.id === 'highority-impex');
+  return company ? <CompanyProfileTemplate company={company} /> : null;
+}

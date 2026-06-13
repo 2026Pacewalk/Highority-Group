@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Building2, Globe, TrendingUp } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
-import { companies } from '@/data/ourCompaniesData';
+import { useCompanies } from '@/lib/content';
 
 const iconMap: Record<string, typeof Building2> = {
   'tk-transport': Building2,
@@ -10,6 +10,7 @@ const iconMap: Record<string, typeof Building2> = {
 };
 
 export default function OurCompaniesSection() {
+  const companies = useCompanies();
   return (
     <section className="relative w-full py-24 bg-[#F0F4F8] overflow-hidden">
       <div className="container-main relative z-10">

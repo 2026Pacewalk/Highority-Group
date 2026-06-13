@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { CheckCircle, Phone, Mail, Shield, Clock, Award } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import PrimaryButton from '@/components/ui/PrimaryButton';
+import { api } from '@/lib/api';
 
 const benefits = [
   { num: '1', title: 'Competitive Pricing', description: 'Get the best rates for air and sea freight with no hidden charges.' },
@@ -19,24 +20,30 @@ export default function QuoteFormSection() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ fullName: '', mobile: '', email: '', cargoType: '', weight: '', dimensions: '', origin: '', destination: '', serviceType: '', message: '' });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => setFormData(p => ({ ...p, [e.target.name]: e.target.value }));
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // Deliver the collected details via the same mailto pattern used by the
-    // Contact and Request-Quote forms (no backend wired up yet).
-    const subject = encodeURIComponent(`Quote Request from ${formData.fullName || 'Website'}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.fullName || 'N/A'}\n` +
-      `Mobile: ${formData.mobile || 'N/A'}\n` +
-      `Email: ${formData.email || 'N/A'}\n` +
-      `Service Type: ${formData.serviceType || 'N/A'}\n` +
-      `Cargo Type: ${formData.cargoType || 'N/A'}\n` +
-      `Weight: ${formData.weight || 'N/A'}\n` +
-      `Dimensions: ${formData.dimensions || 'N/A'}\n` +
-      `Origin: ${formData.origin || 'N/A'}\n` +
-      `Destination: ${formData.destination || 'N/A'}\n` +
-      `Message: ${formData.message || 'N/A'}`
-    );
-    window.location.href = `mailto:contact@highority.in?subject=${subject}&body=${body}`;
+    try {
+      await api('/leads', {
+        method: 'POST',
+        body: JSON.stringify({ type: 'quote', source: 'home-quote', payload: formData }),
+      });
+    } catch {
+      // Fallback to email client if the API is unreachable.
+      const subject = encodeURIComponent(`Quote Request from ${formData.fullName || 'Website'}`);
+      const body = encodeURIComponent(
+        `Name: ${formData.fullName || 'N/A'}\n` +
+        `Mobile: ${formData.mobile || 'N/A'}\n` +
+        `Email: ${formData.email || 'N/A'}\n` +
+        `Service Type: ${formData.serviceType || 'N/A'}\n` +
+        `Cargo Type: ${formData.cargoType || 'N/A'}\n` +
+        `Weight: ${formData.weight || 'N/A'}\n` +
+        `Dimensions: ${formData.dimensions || 'N/A'}\n` +
+        `Origin: ${formData.origin || 'N/A'}\n` +
+        `Destination: ${formData.destination || 'N/A'}\n` +
+        `Message: ${formData.message || 'N/A'}`
+      );
+      window.location.href = `mailto:contact@highority.in?subject=${subject}&body=${body}`;
+    }
     setSubmitted(true);
   };
 

@@ -7,8 +7,10 @@ import {
 } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import PrimaryButton from '@/components/ui/PrimaryButton';
-import { offices } from '@/data/officesData';
+import type { Office } from '@/data/officesData';
 import { emailContacts } from '@/data/emailsData';
+import { api } from '@/lib/api';
+import { useOffices } from '@/lib/content';
 
 /* ────────────────────────────────────────────
    Service options
@@ -40,7 +42,7 @@ function validateMobile(m: string) { return /^[+]?[\d\s-]{10,15}$/.test(m.replac
 /* ────────────────────────────────────────────
    Office Card Component
    ──────────────────────────────────────────── */
-function OfficeCard({ office }: { office: typeof offices[0] }) {
+function OfficeCard({ office }: { office: Office }) {
   return (
     <div className="group bg-white border border-[#0A1628]/5 rounded-2xl overflow-hidden transition-all duration-400 hover:-translate-y-2 hover:shadow-[0_16px_48px_rgba(0,212,255,0.1)] hover:border-[#00D4FF]/20">
       <div className="relative h-44 overflow-hidden">
@@ -93,6 +95,7 @@ function OfficeCard({ office }: { office: typeof offices[0] }) {
    Main Component
    ──────────────────────────────────────────── */
 export default function ContactUsPage() {
+  const offices = useOffices();
   const [form, setForm] = useState<FormState>(initialForm);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
@@ -124,12 +127,18 @@ export default function ContactUsPage() {
     e.preventDefault();
     if (!validate()) return;
     setSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    const subject = encodeURIComponent(`Contact Inquiry from ${form.fullName} - ${form.service}`);
-    const body = encodeURIComponent(
-      `Name: ${form.fullName}\nCompany: ${form.companyName || 'N/A'}\nMobile: ${form.mobile}\nEmail: ${form.email}\nService: ${form.service}\nMessage: ${form.message}`
-    );
-    window.location.href = `mailto:contact@highority.in?subject=${subject}&body=${body}`;
+    try {
+      await api('/leads', {
+        method: 'POST',
+        body: JSON.stringify({ type: 'contact', source: 'contact-us', payload: form }),
+      });
+    } catch {
+      const subject = encodeURIComponent(`Contact Inquiry from ${form.fullName} - ${form.service}`);
+      const body = encodeURIComponent(
+        `Name: ${form.fullName}\nCompany: ${form.companyName || 'N/A'}\nMobile: ${form.mobile}\nEmail: ${form.email}\nService: ${form.service}\nMessage: ${form.message}`
+      );
+      window.location.href = `mailto:contact@highority.in?subject=${subject}&body=${body}`;
+    }
     setSubmitting(false);
     setSubmitted(true);
   };

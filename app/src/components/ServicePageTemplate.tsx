@@ -6,6 +6,7 @@ import ScrollReveal from './ui/ScrollReveal';
 import PrimaryButton from './ui/PrimaryButton';
 import type { ServiceData } from '@/data/serviceData';
 import { servicesData } from '@/data/serviceData';
+import { useService } from '@/lib/content';
 
 function FAQItem({ item, isOpen, onToggle }: { item: { q: string; a: string }; isOpen: boolean; onToggle: () => void }) {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -40,7 +41,10 @@ const defaultWhyUs = [
   { title: '24/7 Support', desc: 'Our dedicated team is available round-the-clock to assist you at every step.', icon: Clock },
 ];
 
-export default function ServicePageTemplate({ service }: ServicePageTemplateProps) {
+export default function ServicePageTemplate({ service: propService }: ServicePageTemplateProps) {
+  // Overlay live data from the API (falls back to the bundled service).
+  const liveService = useService(propService.slug);
+  const service = liveService ?? propService;
   const [openFaq, setOpenFaq] = useState<Set<number>>(new Set());
   const toggleFaq = (i: number) => setOpenFaq(p => { const n = new Set(p); if (n.has(i)) n.delete(i); else n.add(i); return n; });
 

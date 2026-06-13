@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, MapPin, ArrowRight, Building2, Globe, TrendingUp, Phone, Mail } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import PrimaryButton from '@/components/ui/PrimaryButton';
-import { companies, whyChooseUs } from '@/data/ourCompaniesData';
+import { whyChooseUs } from '@/data/ourCompaniesData';
 import type { Company } from '@/data/ourCompaniesData';
+import { useCompanies } from '@/lib/content';
 
 const iconMap: Record<string, typeof Building2> = {
   'tk-transport': Building2,
@@ -17,6 +18,7 @@ interface Props {
 
 export default function CompanyProfileTemplate({ company }: Props) {
   const IconComp = iconMap[company.id] || Building2;
+  const companies = useCompanies();
   const relatedCompanies = companies.filter(c => c.id !== company.id);
 
   return (

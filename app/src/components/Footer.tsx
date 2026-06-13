@@ -4,7 +4,7 @@ import {
   Linkedin, Facebook, Instagram, MapPin, Phone, Mail, Clock,
   Send, ArrowUpRight, ShieldCheck, ArrowUp, MessageCircle, CheckCircle2,
 } from 'lucide-react';
-import { offices } from '@/data/officesData';
+import { useOffices } from '@/lib/content';
 
 /* Custom X (Twitter) Icon */
 function XIcon({ className }: { className?: string }) {
@@ -57,6 +57,7 @@ const socials = [
 ];
 
 export default function Footer() {
+  const offices = useOffices();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const year = new Date().getFullYear();
