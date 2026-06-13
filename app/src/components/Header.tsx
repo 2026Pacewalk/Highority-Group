@@ -166,13 +166,6 @@ export default function Header() {
             <NavLink to="/contact-us" label="Contact Us" active={location.pathname === '/contact-us'} />
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center">
-            <PrimaryButton to="/request-quote" size="small">
-              Request Quote
-            </PrimaryButton>
-          </div>
-
           {/* Mobile Actions */}
           <div className="lg:hidden flex items-center gap-2 z-[101]">
             <PrimaryButton to="/request-quote" size="small" className="hidden sm:flex text-xs px-4 py-2">
