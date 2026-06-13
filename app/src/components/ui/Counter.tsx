@@ -22,7 +22,8 @@ export default function Counter({ target, suffix = '', duration = 2, className =
     gsap.to(obj, {
       val: target, duration, ease: 'power2.out',
       scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
-      onUpdate: () => setDisplay(Math.floor(obj.val).toLocaleString()),
+      onUpdate: () => setDisplay(Math.round(obj.val).toLocaleString()),
+      onComplete: () => setDisplay(target.toLocaleString()),
     });
   }, { scope: ref });
 
