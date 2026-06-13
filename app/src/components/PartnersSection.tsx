@@ -11,7 +11,6 @@ function LogoItem({ partner }: { partner: Partner }) {
       <img
         src={partner.logo}
         alt={partner.alt}
-        loading="lazy"
         className="max-h-full max-w-full w-auto object-contain"
         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
       />
