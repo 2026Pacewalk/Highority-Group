@@ -3,14 +3,16 @@ import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import SecondaryButton from '@/components/ui/SecondaryButton';
+import { blogPosts } from '@/data/blogData';
 
-const blogs = [
-  { title: 'Air Freight vs Sea Freight: Choosing the Right Option', category: 'LOGISTICS GUIDE', date: 'January 15, 2025', readTime: '5 min read', image: '/assets/blog-air-freight.jpg', href: '/blogs/air-freight-vs-sea-freight' },
-  { title: 'By Road vs By Train: Best Cargo Transport for Your Business', category: 'TRANSPORT', date: 'January 10, 2025', readTime: '7 min read', image: '/assets/blog-by-road.jpg', href: '/blogs/by-road-vs-by-train' },
-  { title: 'Understanding Customs Clearance: A Complete Guide', category: 'CUSTOMS', date: 'January 5, 2025', readTime: '6 min read', image: '/assets/blog-customs.jpg', href: '/blogs/customs-clearance-guide' },
-  { title: 'Door-to-Door Logistics: Simplifying Global Shipping', category: 'SHIPPING', date: 'December 28, 2024', readTime: '4 min read', image: '/assets/blog-door-to-door.jpg', href: '/blogs/door-to-door-logistics' },
-  { title: 'Warehousing Solutions for Growing Businesses', category: 'WAREHOUSING', date: 'December 20, 2024', readTime: '8 min read', image: '/assets/blog-warehousing.jpg', href: '/blogs/warehousing-solutions' },
-];
+const blogs = blogPosts.map((p) => ({
+  title: p.title,
+  category: p.category.toUpperCase(),
+  date: p.date,
+  readTime: p.readTime,
+  image: p.image,
+  href: `/blogs/${p.slug}`,
+}));
 
 export default function BlogSection() {
   const scrollRef = useRef<HTMLDivElement>(null);

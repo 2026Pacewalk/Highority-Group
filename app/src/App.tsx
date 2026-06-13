@@ -11,6 +11,8 @@ import HomePage from '@/pages/HomePage';
 import ServicesPage from '@/pages/ServicesPage';
 import PlaceholderPage from '@/pages/PlaceholderPage';
 import AboutUsPage from '@/pages/AboutUsPage';
+import BlogsPage from '@/pages/BlogsPage';
+import BlogPostPage from '@/pages/BlogPostPage';
 import RequestQuotePage from '@/pages/RequestQuotePage';
 import ContactUsPage from '@/pages/ContactUsPage';
 import CertificationsPage from '@/pages/CertificationsPage';
@@ -99,8 +101,8 @@ export default function App() {
           <Route path="/about-us" element={<AboutUsPage />} />
           <Route path="/certifications" element={<CertificationsPage />} />
           <Route path="/careers" element={<PlaceholderPage />} />
-          <Route path="/blogs" element={<PlaceholderPage />} />
-          <Route path="/blogs/:slug" element={<PlaceholderPage />} />
+          <Route path="/blogs" element={<BlogsPage />} />
+          <Route path="/blogs/:slug" element={<BlogPostPage />} />
           <Route path="/contact-us" element={<ContactUsPage />} />
           <Route path="/sitemap" element={<SitemapPage />} />
 
