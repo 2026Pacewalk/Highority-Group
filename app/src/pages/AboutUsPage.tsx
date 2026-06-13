@@ -277,7 +277,7 @@ function WhyChooseUs() {
    Section 6 — Company Strengths (Stats)
    ──────────────────────────────────────────── */
 const stats = [
-  { value: 18, suffix: '+', label: 'Years Industry Experience' },
+  { value: 7, suffix: '+', label: 'Years Industry Experience' },
   { value: 2, suffix: '', label: 'Countries With Direct Offices' },
   { value: 50, suffix: '+', label: 'Countries in Our Network' },
   { value: 8, suffix: '+', label: 'Industries Served' },
