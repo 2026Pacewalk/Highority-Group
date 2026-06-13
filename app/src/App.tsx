@@ -6,6 +6,7 @@ const AdminApp = lazy(() => import('@/admin/AdminApp'));
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MobileActions from '@/components/MobileActions';
+import FloatingActions from '@/components/FloatingActions';
 import HomePage from '@/pages/HomePage';
 import ServicesPage from '@/pages/ServicesPage';
 import PlaceholderPage from '@/pages/PlaceholderPage';
@@ -117,6 +118,7 @@ export default function App() {
       </Suspense>
       <Footer />
       <MobileActions />
+      <FloatingActions />
     </>
   );
 }

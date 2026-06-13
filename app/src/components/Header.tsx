@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, ChevronDown, Phone, Plane, Ship, Truck, ClipboardCheck, Package, Globe, TrendingUp, Zap, TrainFront, Warehouse, Wheat, Apple, ShoppingCart, Cookie, Home, Sparkles, Boxes, Factory } from 'lucide-react';
+import { Menu, ChevronDown, Plane, Ship, Truck, ClipboardCheck, Package, Globe, TrendingUp, Zap, TrainFront, Warehouse, Wheat, Apple, ShoppingCart, Cookie, Home, Sparkles, Boxes, Factory } from 'lucide-react';
 import PrimaryButton from './ui/PrimaryButton';
 import MobileMenu from './MobileMenu';
 
@@ -167,14 +167,7 @@ export default function Header() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-3">
-            <a
-              href="tel:+917087087333"
-              aria-label="Call us"
-              className="flex items-center justify-center w-10 h-10 rounded-full text-[#00D4FF] border border-[#00D4FF]/25 hover:bg-[#00D4FF] hover:text-white hover:border-[#00D4FF] hover:-translate-y-0.5 transition-all duration-300"
-            >
-              <Phone className="w-4 h-4" />
-            </a>
+          <div className="hidden lg:flex items-center">
             <PrimaryButton to="/request-quote" size="small">
               Request Quote
             </PrimaryButton>
