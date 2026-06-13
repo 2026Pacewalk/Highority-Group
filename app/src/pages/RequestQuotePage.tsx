@@ -418,6 +418,12 @@ export default function RequestQuotePage() {
           <p className="mt-5 text-lg font-body text-white/70 max-w-[600px] mx-auto leading-relaxed">
             Fill in your shipment details and our logistics experts will provide a competitive quote within 24 hours.
           </p>
+          <p className="mt-5 text-sm font-body text-white/60">
+            Already have a shipment with us?{' '}
+            <Link to="/track-shipment" className="inline-flex items-center gap-1 text-[#00D4FF] hover:underline font-medium">
+              Track your shipment <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </p>
         </div>
       </section>
 

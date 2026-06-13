@@ -147,6 +147,12 @@ export default function Header() {
               )}
             </div>
 
+            {/* Track Shipment */}
+            <Link to="/track-shipment" className={`relative text-sm font-body text-[#0A1628] transition-colors duration-300 hover:text-[#00D4FF] group ${location.pathname === '/track-shipment' ? 'text-[#00D4FF]' : ''}`}>
+              Track Shipment
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#00D4FF] transition-all duration-300 group-hover:w-full" />
+            </Link>
+
             {/* Contact Us */}
             <Link to="/contact-us" className={`relative text-sm font-body text-[#0A1628] transition-colors duration-300 hover:text-[#00D4FF] group ${location.pathname === '/contact-us' ? 'text-[#00D4FF]' : ''}`}>
               Contact Us

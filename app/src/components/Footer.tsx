@@ -19,6 +19,7 @@ const quickLinks = [
   { label: 'Home', href: '/' },
   { label: 'About Us', href: '/about-us' },
   { label: 'Our Companies', href: '/our-companies' },
+  { label: 'Track Shipment', href: '/track-shipment' },
   { label: 'Request Quote', href: '/request-quote' },
   { label: 'Certifications', href: '/certifications' },
   { label: 'Global Network', href: '/global-network' },

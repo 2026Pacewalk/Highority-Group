@@ -7,6 +7,14 @@
       "runtimeArgs": ["--prefix", "app", "run", "dev"],
       "port": 3000,
       "autoPort": true
+    },
+    {
+      "name": "highority-prod",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["src/index.js"],
+      "cwd": "server",
+      "port": 4500,
+      "autoPort": true
     }
   ]
 }

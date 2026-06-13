@@ -93,3 +93,37 @@ CREATE TABLE IF NOT EXISTS leads (
 
 CREATE INDEX IF NOT EXISTS leads_created_idx ON leads (created_at DESC);
 CREATE INDEX IF NOT EXISTS leads_unread_idx ON leads (is_read) WHERE is_read = false;
+
+CREATE TABLE IF NOT EXISTS shipments (
+  awb                    TEXT PRIMARY KEY,
+  service_type           TEXT,
+  origin                 TEXT,
+  destination            TEXT,
+  booking_date           TEXT,
+  expected_delivery_date TEXT,
+  current_status         TEXT NOT NULL DEFAULT 'Shipment Booked',
+  consignor_name         TEXT,
+  consignor_mobile       TEXT,
+  consignor_address      TEXT,
+  consignee_name         TEXT,
+  consignee_mobile       TEXT,
+  consignee_address      TEXT,
+  cargo_type             TEXT,
+  package_type           TEXT,
+  pieces                 TEXT,
+  weight                 TEXT,
+  dimensions             TEXT,
+  invoice_number         TEXT,
+  remarks                TEXT,
+  receiver_name          TEXT,
+  delivery_date          TEXT,
+  delivery_time          TEXT,
+  pod_remarks            TEXT,
+  pod_image              TEXT,
+  updates                JSONB NOT NULL DEFAULT '[]',
+  created_at             TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at             TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS shipments_status_idx ON shipments (current_status);
+CREATE INDEX IF NOT EXISTS shipments_created_idx ON shipments (created_at DESC);

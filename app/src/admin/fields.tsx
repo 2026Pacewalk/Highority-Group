@@ -29,6 +29,17 @@ export function TextInput({ value, onChange, type = 'text', textarea, ...rest }:
   );
 }
 
+export function SelectInput({ value, onChange, options }: { value?: string; onChange: (v: string) => void; options: string[] }) {
+  return (
+    <select className={inputCls} value={value ?? ''} onChange={(e) => onChange(e.target.value)}>
+      <option value="">— select —</option>
+      {options.map((o) => (
+        <option key={o} value={o}>{o}</option>
+      ))}
+    </select>
+  );
+}
+
 export function IconPicker({ value, onChange }: { value?: string; onChange: (v: string) => void }) {
   const Preview = getIcon(value);
   return (
@@ -171,6 +182,10 @@ export function RepeaterInput({
                 <label className="block text-xs text-[#7A8CA5] mb-1">{s.label}</label>
                 {s.type === 'icon' ? (
                   <IconPicker value={row[s.key]} onChange={(v) => update(i, s.key, v)} />
+                ) : s.type === 'select' ? (
+                  <SelectInput value={row[s.key]} onChange={(v) => update(i, s.key, v)} options={s.options || []} />
+                ) : s.type === 'date' || s.type === 'time' ? (
+                  <TextInput value={row[s.key]} onChange={(v: string) => update(i, s.key, v)} type={s.type} />
                 ) : (
                   <TextInput
                     value={row[s.key]}
@@ -215,6 +230,10 @@ export function FieldInput({
         <TextInput value={value} onChange={onChange} textarea />
       ) : field.type === 'number' ? (
         <TextInput value={value} onChange={onChange} type="number" />
+      ) : field.type === 'date' || field.type === 'time' ? (
+        <TextInput value={value} onChange={onChange} type={field.type} />
+      ) : field.type === 'select' ? (
+        <SelectInput value={value} onChange={onChange} options={field.options || []} />
       ) : field.type === 'icon' ? (
         <IconPicker value={value} onChange={onChange} />
       ) : field.type === 'image' ? (

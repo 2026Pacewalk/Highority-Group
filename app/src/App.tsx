@@ -14,6 +14,7 @@ import RequestQuotePage from '@/pages/RequestQuotePage';
 import ContactUsPage from '@/pages/ContactUsPage';
 import CertificationsPage from '@/pages/CertificationsPage';
 import SitemapPage from '@/pages/SitemapPage';
+import TrackShipmentPage from '@/pages/TrackShipmentPage';
 
 // Service pages
 import AirFreightPage from '@/pages/services/AirFreightPage';
@@ -108,7 +109,7 @@ export default function App() {
           <Route path="/companies/highority-impex-trading-llc" element={<HighorityImpexPage />} />
           <Route path="/companies/highfive-global-ltd" element={<HighfiveGlobalPage />} />
           <Route path="/request-quote" element={<RequestQuotePage />} />
-          <Route path="/track-shipment" element={<PlaceholderPage />} />
+          <Route path="/track-shipment" element={<TrackShipmentPage />} />
           <Route path="/privacy-policy" element={<PlaceholderPage />} />
           <Route path="/terms-of-service" element={<PlaceholderPage />} />
           <Route path="*" element={<PlaceholderPage />} />

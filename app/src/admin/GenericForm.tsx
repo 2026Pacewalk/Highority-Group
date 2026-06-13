@@ -77,13 +77,19 @@ export default function GenericForm() {
           const lockId = isEdit && field.key === cfg.idField;
           if (cfg.autoId && field.key === cfg.idField) return null;
           return (
-            <FieldInput
-              key={field.key}
-              field={field}
-              value={form[field.key]}
-              onChange={(v) => set(field.key, v)}
-              disabled={lockId}
-            />
+            <div key={field.key}>
+              {field.section && (
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-[#00A8CC] pt-3 pb-1 border-t border-[#0A1628]/10 first:border-0 first:pt-0">
+                  {field.section}
+                </h3>
+              )}
+              <FieldInput
+                field={field}
+                value={form[field.key]}
+                onChange={(v) => set(field.key, v)}
+                disabled={lockId}
+              />
+            </div>
           );
         })}
 

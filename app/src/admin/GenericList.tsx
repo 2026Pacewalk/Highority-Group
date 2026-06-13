@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Plus, Pencil, Trash2, Loader2 } from 'lucide-react';
+import { Plus, Pencil, Trash2, Loader2, Search } from 'lucide-react';
 import { toast } from 'sonner';
 import { api } from '@/lib/api';
 import { resources } from './resources';
@@ -10,6 +10,8 @@ export default function GenericList() {
   const cfg = resource ? resources[resource] : undefined;
   const [rows, setRows] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState('');
+  const [filterVal, setFilterVal] = useState('');
 
   const load = () => {
     if (!cfg) return;
@@ -21,6 +23,22 @@ export default function GenericList() {
   };
 
   useEffect(load, [cfg?.path]);
+
+  const visibleRows = useMemo(() => {
+    if (!cfg) return [];
+    let r = rows;
+    if (cfg.filterField && filterVal)
+      r = r.filter((row) => row[cfg.filterField!.key] === filterVal);
+    if (cfg.searchable && query.trim()) {
+      const q = query.trim().toLowerCase();
+      r = r.filter((row) =>
+        [row[cfg.idField], row[cfg.titleField], row[cfg.subtitleField || '']]
+          .filter(Boolean)
+          .some((v) => String(v).toLowerCase().includes(q))
+      );
+    }
+    return r;
+  }, [rows, query, filterVal, cfg]);
 
   if (!cfg) return <p className="text-[#7A8CA5]">Unknown section.</p>;
 
@@ -50,13 +68,41 @@ export default function GenericList() {
         </Link>
       </div>
 
+      {(cfg.searchable || cfg.filterField) && (
+        <div className="flex flex-wrap gap-3 mb-4">
+          {cfg.searchable && (
+            <div className="relative flex-1 min-w-[200px]">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7A8CA5]" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search…"
+                className="w-full rounded-lg border border-[#0A1628]/15 pl-9 pr-3 py-2 text-sm outline-none focus:border-[#00D4FF]"
+              />
+            </div>
+          )}
+          {cfg.filterField && (
+            <select
+              value={filterVal}
+              onChange={(e) => setFilterVal(e.target.value)}
+              className="rounded-lg border border-[#0A1628]/15 px-3 py-2 text-sm outline-none focus:border-[#00D4FF]"
+            >
+              <option value="">All {cfg.filterField.label}</option>
+              {cfg.filterField.options.map((o) => (
+                <option key={o} value={o}>{o}</option>
+              ))}
+            </select>
+          )}
+        </div>
+      )}
+
       {loading ? (
         <div className="flex justify-center py-16">
           <Loader2 className="w-6 h-6 animate-spin text-[#00D4FF]" />
         </div>
       ) : (
         <div className="rounded-xl border border-[#0A1628]/10 overflow-hidden bg-white">
-          {rows.map((row) => {
+          {visibleRows.map((row) => {
             const id = row[cfg.idField];
             return (
               <div
@@ -88,9 +134,11 @@ export default function GenericList() {
               </div>
             );
           })}
-          {rows.length === 0 && (
+          {visibleRows.length === 0 && (
             <p className="px-4 py-10 text-center text-sm text-[#7A8CA5]">
-              No items yet. Click “New {cfg.singular}” to add one.
+              {rows.length === 0
+                ? `No items yet. Click “New ${cfg.singular}” to add one.`
+                : 'No matches.'}
             </p>
           )}
         </div>

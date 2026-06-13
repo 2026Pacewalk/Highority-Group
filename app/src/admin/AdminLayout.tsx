@@ -1,12 +1,13 @@
 import { NavLink, Outlet, useNavigate, Navigate } from 'react-router-dom';
 import {
   Inbox, Building2, Award, Briefcase, Truck, Handshake, LayoutDashboard,
-  LogOut, ExternalLink,
+  LogOut, ExternalLink, PackageSearch,
 } from 'lucide-react';
 import { getToken, clearToken } from '@/lib/api';
 
 const nav = [
   { to: '/admin/leads', label: 'Leads', icon: Inbox },
+  { to: '/admin/shipments', label: 'Shipments', icon: PackageSearch },
   { section: 'Content' },
   { to: '/admin/content/hero', label: 'Homepage Hero', icon: LayoutDashboard },
   { to: '/admin/services', label: 'Services', icon: Truck },

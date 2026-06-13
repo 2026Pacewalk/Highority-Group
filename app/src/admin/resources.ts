@@ -4,6 +4,9 @@ export type FieldType =
   | 'text'
   | 'textarea'
   | 'number'
+  | 'date'
+  | 'time'
+  | 'select'
   | 'color'
   | 'icon'
   | 'image'
@@ -13,7 +16,8 @@ export type FieldType =
 export interface SubField {
   key: string;
   label: string;
-  type: 'text' | 'textarea' | 'icon';
+  type: 'text' | 'textarea' | 'icon' | 'select' | 'date' | 'time';
+  options?: string[];
 }
 
 export interface Field {
@@ -22,8 +26,24 @@ export interface Field {
   type: FieldType;
   required?: boolean;
   help?: string;
+  options?: string[]; // for select
   subFields?: SubField[]; // for repeater
+  section?: string; // optional group heading shown above the field
 }
+
+export const SHIPMENT_STATUSES = [
+  'Shipment Booked',
+  'Picked Up',
+  'Arrived at Origin Hub',
+  'Departed from Origin Hub',
+  'In Transit',
+  'Arrived at Destination Hub',
+  'Out for Delivery',
+  'Delivered',
+  'Hold',
+  'Returned',
+  'Cancelled',
+];
 
 export interface ResourceConfig {
   key: string;
@@ -35,6 +55,8 @@ export interface ResourceConfig {
   titleField: string; // shown as the row title
   subtitleField?: string;
   fields: Field[];
+  searchable?: boolean; // show a search box (filters title + id client-side)
+  filterField?: { key: string; label: string; options: string[] };
 }
 
 export const resources: Record<string, ResourceConfig> = {
@@ -165,6 +187,62 @@ export const resources: Record<string, ResourceConfig> = {
       { key: 'logo', label: 'Logo', type: 'image', required: true },
       { key: 'alt', label: 'Alt text', type: 'text' },
       { key: 'sort_order', label: 'Sort order', type: 'number' },
+    ],
+  },
+  shipments: {
+    key: 'shipments',
+    path: '/shipments',
+    label: 'Shipments',
+    singular: 'Shipment',
+    idField: 'awb',
+    titleField: 'awb',
+    subtitleField: 'current_status',
+    searchable: true,
+    filterField: { key: 'current_status', label: 'Status', options: SHIPMENT_STATUSES },
+    fields: [
+      { key: 'awb', label: 'AWB / Tracking Number', type: 'text', required: true, section: 'Basic Details', help: 'Unique. Cannot change later.' },
+      { key: 'service_type', label: 'Service Type', type: 'select', options: ['Air Freight', 'Sea Freight', 'Door to Door', 'By Road / Line Haul', 'By Train', 'Domestic Priority', 'Import Express', 'International'] },
+      { key: 'origin', label: 'Origin', type: 'text' },
+      { key: 'destination', label: 'Destination', type: 'text' },
+      { key: 'booking_date', label: 'Booking Date', type: 'date' },
+      { key: 'expected_delivery_date', label: 'Expected Delivery Date', type: 'date' },
+      { key: 'current_status', label: 'Current Status', type: 'select', options: SHIPMENT_STATUSES, required: true },
+
+      { key: 'consignor_name', label: 'Consignor Name', type: 'text', section: 'Consignor (Sender)' },
+      { key: 'consignor_mobile', label: 'Consignor Mobile', type: 'text' },
+      { key: 'consignor_address', label: 'Consignor Address', type: 'textarea' },
+
+      { key: 'consignee_name', label: 'Consignee Name', type: 'text', section: 'Consignee (Receiver)' },
+      { key: 'consignee_mobile', label: 'Consignee Mobile', type: 'text' },
+      { key: 'consignee_address', label: 'Consignee Address', type: 'textarea' },
+
+      { key: 'cargo_type', label: 'Cargo Type', type: 'text', section: 'Cargo Details' },
+      { key: 'package_type', label: 'Package Type', type: 'text' },
+      { key: 'pieces', label: 'Number of Pieces', type: 'text' },
+      { key: 'weight', label: 'Weight', type: 'text' },
+      { key: 'dimensions', label: 'Dimensions', type: 'text' },
+      { key: 'invoice_number', label: 'Invoice Number', type: 'text' },
+      { key: 'remarks', label: 'Remarks', type: 'textarea' },
+
+      {
+        key: 'updates',
+        label: 'Tracking Timeline Updates',
+        type: 'repeater',
+        section: 'Tracking Timeline',
+        subFields: [
+          { key: 'status', label: 'Status', type: 'select', options: SHIPMENT_STATUSES },
+          { key: 'location', label: 'Location', type: 'text' },
+          { key: 'date', label: 'Date', type: 'date' },
+          { key: 'time', label: 'Time', type: 'time' },
+          { key: 'remarks', label: 'Remarks', type: 'textarea' },
+        ],
+      },
+
+      { key: 'receiver_name', label: 'Receiver Name', type: 'text', section: 'Delivery Details' },
+      { key: 'delivery_date', label: 'Delivery Date', type: 'date' },
+      { key: 'delivery_time', label: 'Delivery Time', type: 'time' },
+      { key: 'pod_remarks', label: 'Proof of Delivery Remarks', type: 'textarea' },
+      { key: 'pod_image', label: 'Proof of Delivery Image', type: 'image' },
     ],
   },
 };

@@ -16,6 +16,7 @@ import services from './routes/services.js';
 import partners from './routes/partners.js';
 import siteContent from './routes/siteContent.js';
 import leads from './routes/leads.js';
+import shipments from './routes/shipments.js';
 import uploads from './routes/uploads.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -40,6 +41,7 @@ if (hasDb) {
   app.use('/api/partners', partners);
   app.use('/api/site-content', siteContent);
   app.use('/api/leads', leads);
+  app.use('/api/shipments', shipments);
   app.use('/api/uploads', uploads);
 }
 
