@@ -22,6 +22,9 @@ import uploads from './routes/uploads.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 
+// Behind Nginx + Cloudflare — trust the proxy chain so req.ip is the real client.
+app.set('trust proxy', true);
+
 app.use(express.json({ limit: '1mb' }));
 // CORS only matters in local dev (vite proxy makes prod same-origin).
 if (process.env.NODE_ENV !== 'production') app.use(cors());
