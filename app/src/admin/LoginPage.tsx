@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Lock, Loader2, ShieldCheck, Eye, EyeOff } from 'lucide-react';
 import { api, setToken, ApiError } from '@/lib/api';
+import { ADMIN_BASE } from './config';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -25,7 +26,7 @@ export default function LoginPage() {
         body: JSON.stringify({ username: email.trim(), password }),
       });
       setToken(token);
-      navigate('/admin/leads');
+      navigate(`${ADMIN_BASE}/leads`);
     } catch (err) {
       if (err instanceof ApiError && err.status === 429)
         setError('Too many attempts. Please wait a few minutes and try again.');

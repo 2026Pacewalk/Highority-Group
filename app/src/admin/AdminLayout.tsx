@@ -4,26 +4,27 @@ import {
   LogOut, ExternalLink, PackageSearch,
 } from 'lucide-react';
 import { getToken, clearToken } from '@/lib/api';
+import { ADMIN_BASE } from './config';
 
 const nav = [
-  { to: '/admin/leads', label: 'Leads', icon: Inbox },
-  { to: '/admin/shipments', label: 'Shipments', icon: PackageSearch },
+  { to: `${ADMIN_BASE}/leads`, label: 'Leads', icon: Inbox },
+  { to: `${ADMIN_BASE}/shipments`, label: 'Shipments', icon: PackageSearch },
   { section: 'Content' },
-  { to: '/admin/content/hero', label: 'Homepage Hero', icon: LayoutDashboard },
-  { to: '/admin/services', label: 'Services', icon: Truck },
-  { to: '/admin/companies', label: 'Companies', icon: Briefcase },
-  { to: '/admin/certifications', label: 'Certifications', icon: Award },
-  { to: '/admin/offices', label: 'Offices', icon: Building2 },
-  { to: '/admin/partners', label: 'Partners', icon: Handshake },
+  { to: `${ADMIN_BASE}/content/hero`, label: 'Homepage Hero', icon: LayoutDashboard },
+  { to: `${ADMIN_BASE}/services`, label: 'Services', icon: Truck },
+  { to: `${ADMIN_BASE}/companies`, label: 'Companies', icon: Briefcase },
+  { to: `${ADMIN_BASE}/certifications`, label: 'Certifications', icon: Award },
+  { to: `${ADMIN_BASE}/offices`, label: 'Offices', icon: Building2 },
+  { to: `${ADMIN_BASE}/partners`, label: 'Partners', icon: Handshake },
 ];
 
 export default function AdminLayout() {
   const navigate = useNavigate();
-  if (!getToken()) return <Navigate to="/admin/login" replace />;
+  if (!getToken()) return <Navigate to={`${ADMIN_BASE}/login`} replace />;
 
   function logout() {
     clearToken();
-    navigate('/admin/login');
+    navigate(`${ADMIN_BASE}/login`);
   }
 
   return (

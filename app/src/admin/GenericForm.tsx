@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import { api } from '@/lib/api';
 import { resources } from './resources';
 import { FieldInput } from './fields';
+import { ADMIN_BASE } from './config';
 
 export default function GenericForm() {
   const { resource, id } = useParams();
@@ -44,7 +45,7 @@ export default function GenericForm() {
         await api(cfg!.path, { method: 'POST', body: JSON.stringify(form) });
       }
       toast.success('Saved');
-      navigate(`/admin/${cfg!.key}`);
+      navigate(`${ADMIN_BASE}/${cfg!.key}`);
     } catch (err: any) {
       toast.error(err?.message || 'Save failed');
     } finally {
@@ -62,7 +63,7 @@ export default function GenericForm() {
   return (
     <div className="max-w-2xl">
       <Link
-        to={`/admin/${cfg.key}`}
+        to={`${ADMIN_BASE}/${cfg.key}`}
         className="inline-flex items-center gap-1.5 text-sm text-[#7A8CA5] hover:text-[#0A1628] mb-4"
       >
         <ChevronLeft className="w-4 h-4" /> Back to {cfg.label}
@@ -103,7 +104,7 @@ export default function GenericForm() {
             Save
           </button>
           <Link
-            to={`/admin/${cfg.key}`}
+            to={`${ADMIN_BASE}/${cfg.key}`}
             className="rounded-lg border border-[#0A1628]/15 text-sm text-[#0A1628] px-5 py-2.5 hover:bg-[#F5F8FA] transition"
           >
             Cancel

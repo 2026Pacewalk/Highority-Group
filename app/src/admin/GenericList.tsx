@@ -4,6 +4,7 @@ import { Plus, Pencil, Trash2, Loader2, Search } from 'lucide-react';
 import { toast } from 'sonner';
 import { api } from '@/lib/api';
 import { resources } from './resources';
+import { ADMIN_BASE } from './config';
 
 export default function GenericList() {
   const { resource } = useParams();
@@ -61,7 +62,7 @@ export default function GenericList() {
           <p className="text-sm text-[#7A8CA5]">{rows.length} item(s)</p>
         </div>
         <Link
-          to={`/admin/${cfg.key}/new`}
+          to={`${ADMIN_BASE}/${cfg.key}/new`}
           className="inline-flex items-center gap-2 rounded-lg bg-[#00D4FF] text-[#0A1628] text-sm font-medium px-4 py-2 hover:shadow-[0_0_16px_rgba(0,212,255,0.4)] transition"
         >
           <Plus className="w-4 h-4" /> New {cfg.singular}
@@ -119,7 +120,7 @@ export default function GenericList() {
                 </div>
                 <div className="flex items-center gap-1 flex-shrink-0">
                   <Link
-                    to={`/admin/${cfg.key}/${id}/edit`}
+                    to={`${ADMIN_BASE}/${cfg.key}/${id}/edit`}
                     className="p-2 rounded-lg text-[#7A8CA5] hover:text-[#00A8CC] hover:bg-[#00D4FF]/10"
                   >
                     <Pencil className="w-4 h-4" />
