@@ -20,6 +20,7 @@ import ContactUsPage from '@/pages/ContactUsPage';
 import CertificationsPage from '@/pages/CertificationsPage';
 import SitemapPage from '@/pages/SitemapPage';
 import TrackShipmentPage from '@/pages/TrackShipmentPage';
+import NotFoundPage from '@/pages/NotFoundPage';
 
 // Service pages
 import AirFreightPage from '@/pages/services/AirFreightPage';
@@ -117,7 +118,7 @@ export default function App() {
           <Route path="/track-shipment" element={<TrackShipmentPage />} />
           <Route path="/privacy-policy" element={<PlaceholderPage />} />
           <Route path="/terms-of-service" element={<PlaceholderPage />} />
-          <Route path="*" element={<PlaceholderPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
       <Footer />
