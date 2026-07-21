@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import { api } from '@/lib/api';
 import { resources } from './resources';
 import { ADMIN_BASE } from './config';
+import BulkUpload from './BulkUpload';
 
 export default function GenericList() {
   const { resource } = useParams();
@@ -61,12 +62,15 @@ export default function GenericList() {
           <h1 className="text-2xl font-semibold text-[#0A1628]">{cfg.label}</h1>
           <p className="text-sm text-[#7A8CA5]">{rows.length} item(s)</p>
         </div>
-        <Link
-          to={`${ADMIN_BASE}/${cfg.key}/new`}
-          className="inline-flex items-center gap-2 rounded-lg bg-[#00D4FF] text-[#0A1628] text-sm font-medium px-4 py-2 hover:shadow-[0_0_16px_rgba(0,212,255,0.4)] transition"
-        >
-          <Plus className="w-4 h-4" /> New {cfg.singular}
-        </Link>
+        <div className="flex items-center gap-2">
+          {cfg.bulkImport && <BulkUpload onDone={load} />}
+          <Link
+            to={`${ADMIN_BASE}/${cfg.key}/new`}
+            className="inline-flex items-center gap-2 rounded-lg bg-[#00D4FF] text-[#0A1628] text-sm font-medium px-4 py-2 hover:shadow-[0_0_16px_rgba(0,212,255,0.4)] transition"
+          >
+            <Plus className="w-4 h-4" /> New {cfg.singular}
+          </Link>
+        </div>
       </div>
 
       {(cfg.searchable || cfg.filterField) && (

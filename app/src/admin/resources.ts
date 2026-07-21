@@ -57,6 +57,7 @@ export interface ResourceConfig {
   fields: Field[];
   searchable?: boolean; // show a search box (filters title + id client-side)
   filterField?: { key: string; label: string; options: string[] };
+  bulkImport?: boolean; // show the Excel bulk-import button
 }
 
 export const resources: Record<string, ResourceConfig> = {
@@ -198,6 +199,7 @@ export const resources: Record<string, ResourceConfig> = {
     titleField: 'awb',
     subtitleField: 'current_status',
     searchable: true,
+    bulkImport: true,
     filterField: { key: 'current_status', label: 'Status', options: SHIPMENT_STATUSES },
     fields: [
       { key: 'awb', label: 'AWB / Tracking Number', type: 'text', required: true, section: 'Basic Details', help: 'Unique. Cannot change later.' },

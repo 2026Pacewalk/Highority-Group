@@ -91,6 +91,55 @@ r.post('/', async (req, res, next) => {
   }
 });
 
+// bulk upsert from Excel import
+r.post('/bulk', async (req, res, next) => {
+  try {
+    const list = Array.isArray(req.body?.shipments) ? req.body.shipments : null;
+    if (!list) return res.status(400).json({ error: 'shipments array required' });
+    if (list.length > 5000)
+      return res.status(413).json({ error: 'Too many rows (max 5000 per upload).' });
+
+    let created = 0;
+    let updated = 0;
+    let failed = 0;
+    const errors = [];
+
+    for (const s of list) {
+      const awb = String(s?.awb ?? '').trim();
+      if (!awb) {
+        failed++;
+        errors.push('A row is missing an AWB / tracking number.');
+        continue;
+      }
+      try {
+        const cols = COLUMNS.filter((c) => s[c] !== undefined && s[c] !== null);
+        if (!cols.includes('awb')) cols.unshift('awb');
+        const vals = cols.map((c) => norm(c === 'awb' ? awb : s[c]));
+        const ph = cols.map((_, i) => `$${i + 1}`);
+        const setCols = cols.filter((c) => c !== 'awb');
+        const setClause = setCols
+          .map((c) => `${c} = EXCLUDED.${c}`)
+          .concat('updated_at = now()')
+          .join(', ');
+        const { rows } = await pool.query(
+          `INSERT INTO shipments (${cols.join(',')}) VALUES (${ph})
+           ON CONFLICT (awb) DO UPDATE SET ${setClause}
+           RETURNING (xmax = 0) AS inserted`,
+          vals
+        );
+        rows[0].inserted ? created++ : updated++;
+      } catch (e) {
+        failed++;
+        errors.push(`${awb}: ${e.message}`);
+      }
+    }
+
+    res.json({ total: list.length, created, updated, failed, errors: errors.slice(0, 25) });
+  } catch (e) {
+    next(e);
+  }
+});
+
 r.put('/:awb', async (req, res, next) => {
   try {
     const cols = COLUMNS.filter(
